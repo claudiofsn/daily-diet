@@ -1,0 +1,35 @@
+{
+  "name": "daily-diet-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "knex": "node --import tsx ./node_modules/knex/bin/cli.js",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts --fix",
+    "build": "tsup src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/jwt": "^9.1.0",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.2",
+    "fastify-jwt": "^4.1.3",
+    "knex": "^3.1.0",
+    "sqlite3": "^5.1.7",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.13.13",
+    "fastify-cli": "^7.3.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
