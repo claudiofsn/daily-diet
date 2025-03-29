@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+      "types": ["./src/@types/fastify"]
+    }
+  }
+  

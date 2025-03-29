@@ -1,7 +1,7 @@
 import fastifyJwt from "@fastify/jwt";
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
-import { env } from "../env";
+import { env } from "../../env";
 
 export default fp(async (fastify: FastifyInstance) => {
     fastify.register(fastifyJwt, {
@@ -10,9 +10,16 @@ export default fp(async (fastify: FastifyInstance) => {
 
     fastify.decorate("authenticate", async function (request, reply) {
         try {
-            await request.jwtVerify();
+            const token = request.cookies.token;
+
+            if (!token) {
+                throw new Error("No token provided");
+            }
+
+            request.user = fastify.jwt.verify(token);
         } catch (err) {
-            reply.status(401).send({ error: "Unauthorized" });
+            return reply.status(401).send({ error: "Unauthorized" });
         }
+
     });
 });

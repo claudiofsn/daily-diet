@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { FastifyInstance } from "fastify";
 import { randomUUID } from "node:crypto";
-import { knex } from '../db/knex';
+import { knex } from '../../db/knex';
 import { registerSchema } from "../schemas/authSchema";
 
 export default async function authRoutes(fastify: FastifyInstance) {
@@ -41,6 +41,17 @@ export default async function authRoutes(fastify: FastifyInstance) {
         }
 
         const token = fastify.jwt.sign({ id: user.id, username: user.username });
+
+        reply.setCookie("token", token, {
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            path: '/'
+        })
+
         return reply.send({ token });
+    });
+
+    fastify.post("/logout", async (request, reply) => {
+        reply.clearCookie("token", { path: "/" });
+        return reply.send({ message: "Logged out" });
     });
 }
